@@ -21,10 +21,14 @@ namespace MasterMind
     /// </summary>
     public partial class MainWindow : Window
     {
-        StringBuilder sb = new StringBuilder();
 
+        // Variables
+        StringBuilder sb = new StringBuilder();
         Random rnd = new Random();
         string color1, color2, color3, color4;
+        string[] solution;
+        string[] options = { "Red", "Yellow", "Orange", "White", "Green", "Blue" };
+        
 
         public MainWindow()
         {
@@ -33,46 +37,147 @@ namespace MasterMind
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-
-            // Set current Title in the StringBuilder
+            // Set current Title in the StringBuilder.
             sb.Append(this.Title);
 
-            // Randomize colors
-            color1 = GenerateRandomColor(rnd.Next(0, 6));
-            color2 = GenerateRandomColor(rnd.Next(0, 6));
-            color3 = GenerateRandomColor(rnd.Next(0, 6));
-            color4 = GenerateRandomColor(rnd.Next(0, 6));
+            // Randomize colors.
+            color1 = GenerateRandomColor();
+            color2 = GenerateRandomColor();
+            color3 = GenerateRandomColor();
+            color4 = GenerateRandomColor();
+            solution = new string[] { color1, color2, color3, color4 };
 
+            // Set randomized colors in the StringBuilder.
             sb.Append($" {color1}, {color2}, {color3}, {color4}");
 
+            // Change Title to data from the StringBuilder.
             this.Title = sb.ToString();
 
+            // Generate 6 available colors for each ComboBox (from the options array variable)
+            AddComboBoxItems(ComboBoxOption1);
+            AddComboBoxItems(ComboBoxOption2);
+            AddComboBoxItems(ComboBoxOption3);
+            AddComboBoxItems(ComboBoxOption4);
         }
 
-        private static string GenerateRandomColor(int randomColor)
+        private string GenerateRandomColor()
         {
+            // Generate a random number between 0 and 5.
+            int randomColor = rnd.Next(0, 6);
+
+            // Check which color to return from the picked number.
             switch (randomColor)
             {
                 case 0:
-                    return "Red";
-
+                    return options[0];
                 case 1:
-                    return "Yellow";
-
+                    return options[1];
                 case 2:
-                    return "Orange";
-
+                    return options[2];
                 case 3:
-                    return "White";
-
+                    return options[3];
                 case 4:
-                    return "Green";
-
+                    return options[4];
                 case 5:
-                    return "Blue";
-
+                    return options[5];
                 default:
                     return "Color choice out of range.";
+            }
+        }
+
+        private ComboBox AddComboBoxItems(ComboBox ComboBox)
+        {
+            for (int i = 0; i < options.Length; i++)
+            {
+                ComboBox.Items.Add(options[i]);
+            }
+            return ComboBox;
+        }
+
+        private void ComboBoxOption_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ComboBox comboBox = sender as ComboBox;
+
+            if (comboBox == ComboBoxOption1)
+            {
+                colorLabel1.Background = ChangeLabelBackgroundColor(comboBox);
+            }
+            else if (comboBox == ComboBoxOption2)
+            {
+                colorLabel2.Background = ChangeLabelBackgroundColor(comboBox);
+            }
+            else if (comboBox == ComboBoxOption3)
+            {
+                colorLabel3.Background = ChangeLabelBackgroundColor(comboBox);
+            }
+            else
+            {
+                colorLabel4.Background = ChangeLabelBackgroundColor(comboBox);
+            }
+        }
+
+        private Brush ChangeLabelBackgroundColor(ComboBox ComboBox)
+        {
+            switch (ComboBox.SelectedIndex)
+            {
+                case 0:
+                    return (Brush)new BrushConverter().ConvertFromString(options[0]);
+
+                case 1:
+                    return (Brush)new BrushConverter().ConvertFromString(options[1]);
+
+                case 2:
+                    return (Brush)new BrushConverter().ConvertFromString(options[2]);
+
+                case 3:
+                    return (Brush)new BrushConverter().ConvertFromString(options[3]);
+
+                case 4:
+                    return (Brush)new BrushConverter().ConvertFromString(options[4]);
+
+                case 5:
+                    return (Brush)new BrushConverter().ConvertFromString(options[5]);
+
+                default:
+                    return Brushes.Black;
+            }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            CheckCode(solution, ComboBoxOption1, colorLabel1, 0);
+            CheckCode(solution, ComboBoxOption2, colorLabel2, 1);
+            CheckCode(solution, ComboBoxOption3, colorLabel3, 2);
+            CheckCode(solution, ComboBoxOption4, colorLabel4, 3);
+        }
+
+        private bool ColorInCorrectPosition(string[] solution, ComboBox comboBox, int position)
+        {
+            if (comboBox.Text == solution[position].ToString())
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private void CheckCode(string[] solution, ComboBox comboBox, Label colorLabel, int position)
+        {
+            if (comboBox.Text != null && solution.Contains(comboBox.Text) && !ColorInCorrectPosition(solution, comboBox, position))
+            {
+                colorLabel.BorderBrush = Brushes.Wheat;
+                colorLabel.BorderThickness = new Thickness(5);
+            }
+            else if (ColorInCorrectPosition(solution, comboBox, position))
+            {
+                colorLabel.BorderBrush = Brushes.DarkRed;
+                colorLabel.BorderThickness = new Thickness(5);
+            }
+            else
+            {
+                colorLabel.BorderThickness = new Thickness(0);
             }
         }
     }

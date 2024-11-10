@@ -8,11 +8,12 @@
         Title="MasterMind" Height="500" Width="800" Loaded="Window_Loaded">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="20"/>
-            <RowDefinition Height="150"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="1*"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="35"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -21,49 +22,18 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <ComboBox VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="20" Padding="0,0,0,0">
-            <ComboBoxItem>Option 1</ComboBoxItem>
-            <ComboBoxItem>Option 2</ComboBoxItem>
-            <ComboBoxItem>Option 3</ComboBoxItem>
-            <ComboBoxItem>Option 4</ComboBoxItem>
-            <ComboBoxItem>Option 5</ComboBoxItem>
-            <ComboBoxItem>Option 6</ComboBoxItem>
-        </ComboBox>
+        <ComboBox Name="ComboBoxOption1" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" SelectionChanged="ComboBoxOption_SelectionChanged"></ComboBox>
+        <ComboBox Name="ComboBoxOption2" Grid.Column="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" SelectionChanged="ComboBoxOption_SelectionChanged"></ComboBox>
+        <ComboBox Name="ComboBoxOption3" Grid.Column="2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" SelectionChanged="ComboBoxOption_SelectionChanged"></ComboBox>
+        <ComboBox Name="ComboBoxOption4" Grid.Column="3" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" SelectionChanged="ComboBoxOption_SelectionChanged"></ComboBox>
 
-        <ComboBox VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="20" Grid.Column="1" Padding="0,0,0,0">
-            <ComboBoxItem>Option 1</ComboBoxItem>
-            <ComboBoxItem>Option 2</ComboBoxItem>
-            <ComboBoxItem>Option 3</ComboBoxItem>
-            <ComboBoxItem>Option 4</ComboBoxItem>
-            <ComboBoxItem>Option 5</ComboBoxItem>
-            <ComboBoxItem>Option 6</ComboBoxItem>
-        </ComboBox>
-
-        <ComboBox Grid.Column="2" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="20" Padding="0,0,0,0">
-            <ComboBoxItem>Option 1</ComboBoxItem>
-            <ComboBoxItem>Option 2</ComboBoxItem>
-            <ComboBoxItem>Option 3</ComboBoxItem>
-            <ComboBoxItem>Option 4</ComboBoxItem>
-            <ComboBoxItem>Option 5</ComboBoxItem>
-            <ComboBoxItem>Option 6</ComboBoxItem>
-        </ComboBox>
-
-        <ComboBox Grid.Column="3" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="20" Padding="0,0,0,0">
-            <ComboBoxItem>Option 1</ComboBoxItem>
-            <ComboBoxItem>Option 2</ComboBoxItem>
-            <ComboBoxItem>Option 3</ComboBoxItem>
-            <ComboBoxItem>Option 4</ComboBoxItem>
-            <ComboBoxItem>Option 5</ComboBoxItem>
-            <ComboBoxItem>Option 6</ComboBoxItem>
-        </ComboBox>
-
-        <Label Grid.Row="1" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="0,0,0,0"/>
-        <Label Grid.Row="1" Grid.Column="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="0,0,0,0"/>
-        <Label Grid.Row="1" Grid.Column="2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="0,0,0,0"/>
-        <Label Grid.Row="1" Grid.Column="3" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="0,0,0,0"/>
+        <Label Name="colorLabel1" Grid.Column="0" Grid.Row="1"/>
+        <Label Name="colorLabel2" Grid.Column="1" Grid.Row="1"/>
+        <Label Name="colorLabel3" Grid.Column="2" Grid.Row="1"/>
+        <Label Name="colorLabel4" Grid.Column="3" Grid.Row="1"/>
 
 
-        <Button Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Content="Check code" BorderThickness="3,3,3,3"/>
+        <Button Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Content="Check code" BorderThickness="3,3,3,3" Click="Button_Click"/>
 
     </Grid>
 </Window>
