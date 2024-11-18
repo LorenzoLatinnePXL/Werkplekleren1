@@ -5,15 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MasterMind"
         mc:Ignorable="d"
-        Title="MasterMind" Height="500" Width="800" Loaded="Window_Loaded">
+        Title="MasterMind" Height="500" Width="800" Loaded="Window_Loaded" KeyDown="Window_KeyDown">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="25"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="35"/>
-            <RowDefinition Height="35"/>
-            <RowDefinition Height="35"/>
+            <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -32,7 +31,10 @@
         <Label Name="colorLabel3" Grid.Column="2" Grid.Row="1"/>
         <Label Name="colorLabel4" Grid.Column="3" Grid.Row="1"/>
 
+        <TextBox x:Name="solutionTextBox" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Height="30px" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Visibility="Hidden"></TextBox>
 
+        <Label x:Name="timerLabel" Grid.Row="3" Grid.Column="3" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></Label>
+        
         <Button Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Content="Check code" BorderThickness="3,3,3,3" Click="Button_Click"/>
 
     </Grid>

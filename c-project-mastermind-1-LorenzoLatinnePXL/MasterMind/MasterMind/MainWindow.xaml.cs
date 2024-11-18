@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace MasterMind
 {
@@ -28,7 +29,11 @@ namespace MasterMind
         string color1, color2, color3, color4;
         string[] solution;
         string[] options = { "Red", "Yellow", "Orange", "White", "Green", "Blue" };
-        
+        int attempts = 0;
+        bool debugMode = false;
+        DispatcherTimer timer;
+        TimeSpan elapsedTime;
+        DateTime clicked;
 
         public MainWindow()
         {
@@ -37,6 +42,9 @@ namespace MasterMind
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            // Get the current time when the program is launched.
+            clicked = DateTime.Now;
+
             // Set current Title in the StringBuilder.
             sb.Append(this.Title);
 
@@ -47,17 +55,70 @@ namespace MasterMind
             color4 = GenerateRandomColor();
             solution = new string[] { color1, color2, color3, color4 };
 
-            // Set randomized colors in the StringBuilder.
-            sb.Append($" {color1}, {color2}, {color3}, {color4}");
+            // Set solution in the hidden TextBox.
+            solutionTextBox.Text = $"{color1}, {color2}, {color3}, {color4}";
+
+            // Set attempts in the StringBuilder;
+            sb.Append($" - Attempt {attempts}");
 
             // Change Title to data from the StringBuilder.
             this.Title = sb.ToString();
+
+            // Set timer to timerLabel.
+            timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromMilliseconds(1);
+            timer.Tick += Timer_Tick;
+            timerLabel.Content = "Timer: 0,000 / 10";
 
             // Generate 6 available colors for each ComboBox (from the options array variable)
             AddComboBoxItems(ComboBoxOption1);
             AddComboBoxItems(ComboBoxOption2);
             AddComboBoxItems(ComboBoxOption3);
             AddComboBoxItems(ComboBoxOption4);
+
+            // Start timer when window is loaded.
+            timer.Start();
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            elapsedTime = DateTime.Now - clicked;
+            SetTimerLabelContent(elapsedTime);
+            SetTimerLabelLayout(elapsedTime);
+
+            if (elapsedTime.TotalSeconds >= 10)
+            {
+                RestartTimer();
+            }
+        }
+
+        private void RestartTimer()
+        {
+            timer.Stop();
+            clicked = DateTime.Now;
+            attempts++;
+            sb.Clear();
+            sb.Append($"MasterMind - Attempt {attempts}");
+            this.Title = sb.ToString();
+            timer.Start();
+        }
+
+        private void SetTimerLabelLayout(TimeSpan elapsedTime)
+        {
+            if (elapsedTime.TotalSeconds >= 7)
+            {
+                timerLabel.Foreground = Brushes.Red;
+                timerLabel.FontWeight = FontWeights.Bold;
+            } else
+            {
+                timerLabel.Foreground = Brushes.Black;
+                timerLabel.FontWeight = FontWeights.Regular;
+            }
+        }
+
+        private void SetTimerLabelContent(TimeSpan elapsedTime)
+        {
+            timerLabel.Content = $"Timer: {elapsedTime.TotalSeconds.ToString("N3")} / 10";
         }
 
         private string GenerateRandomColor()
@@ -149,6 +210,8 @@ namespace MasterMind
             CheckCode(solution, ComboBoxOption2, colorLabel2, 1);
             CheckCode(solution, ComboBoxOption3, colorLabel3, 2);
             CheckCode(solution, ComboBoxOption4, colorLabel4, 3);
+
+            RestartTimer(); ;
         }
 
         private bool ColorInCorrectPosition(string[] solution, ComboBox comboBox, int position)
@@ -178,6 +241,36 @@ namespace MasterMind
             else
             {
                 colorLabel.BorderThickness = new Thickness(0);
+            }
+        }
+
+        /// <summary>
+        /// This methods checks whether or not the player has pressed the combination keys CTRL+F12 to enter Debug Mode and check the
+        /// code solution in the hidden solutionTextBox.
+        /// </summary>
+        /// <param name="e"></param>
+        /// <returns></returns>
+        private bool ToggleDebug(KeyEventArgs e)
+        {
+            if (e.KeyboardDevice.Modifiers == ModifierKeys.Control && e.Key == Key.F12)
+            {
+                return true;
+            } 
+            else
+            {
+                return false;
+            }
+        }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (ToggleDebug(e))
+            {
+                solutionTextBox.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                solutionTextBox.Visibility = Visibility.Hidden;
             }
         }
     }
