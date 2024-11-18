@@ -244,27 +244,9 @@ namespace MasterMind
             }
         }
 
-        /// <summary>
-        /// This methods checks whether or not the player has pressed the combination keys CTRL+F12 to enter Debug Mode and check the
-        /// code solution in the hidden solutionTextBox.
-        /// </summary>
-        /// <param name="e"></param>
-        /// <returns></returns>
-        private bool ToggleDebug(KeyEventArgs e)
-        {
-            if (e.KeyboardDevice.Modifiers == ModifierKeys.Control && e.Key == Key.F12)
-            {
-                return true;
-            } 
-            else
-            {
-                return false;
-            }
-        }
-
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
-            if (ToggleDebug(e))
+            if (e.KeyboardDevice.Modifiers == ModifierKeys.Control && e.Key == Key.F12)
             {
                 solutionTextBox.Visibility = Visibility.Visible;
             }
