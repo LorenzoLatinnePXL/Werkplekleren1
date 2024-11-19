@@ -5,14 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MasterMind"
         mc:Ignorable="d"
-        Title="MasterMind" Height="500" Width="800" Loaded="Window_Loaded" KeyDown="Window_KeyDown">
+        Title="MasterMind" Height="800" Width="1000" Loaded="Window_Loaded" KeyDown="Window_KeyDown">
     <Grid Name="gameGrid">
         <Grid.RowDefinitions>
-            <RowDefinition Height="25"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="35"/>
-            <RowDefinition Height="1*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="117*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="583*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -21,21 +21,24 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <ComboBox Name="ComboBoxOption1" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" SelectionChanged="ComboBoxOption_SelectionChanged"></ComboBox>
-        <ComboBox Name="ComboBoxOption2" Grid.Column="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" SelectionChanged="ComboBoxOption_SelectionChanged"></ComboBox>
-        <ComboBox Name="ComboBoxOption3" Grid.Column="2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" SelectionChanged="ComboBoxOption_SelectionChanged"></ComboBox>
-        <ComboBox Name="ComboBoxOption4" Grid.Column="3" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" SelectionChanged="ComboBoxOption_SelectionChanged"></ComboBox>
+        <ComboBox Name="ComboBoxOption1" Grid.Row="1" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" SelectionChanged="ComboBoxOption_SelectionChanged"></ComboBox>
+        <ComboBox Name="ComboBoxOption2" Grid.Row="1" Grid.Column="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" SelectionChanged="ComboBoxOption_SelectionChanged"></ComboBox>
+        <ComboBox Name="ComboBoxOption3" Grid.Row="1" Grid.Column="2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" SelectionChanged="ComboBoxOption_SelectionChanged"></ComboBox>
+        <ComboBox Name="ComboBoxOption4" Grid.Row="1" Grid.Column="3" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" SelectionChanged="ComboBoxOption_SelectionChanged"></ComboBox>
 
-        <Label Name="colorLabel1" Grid.Column="0" Grid.Row="1"/>
-        <Label Name="colorLabel2" Grid.Column="1" Grid.Row="1"/>
-        <Label Name="colorLabel3" Grid.Column="2" Grid.Row="1"/>
-        <Label Name="colorLabel4" Grid.Column="3" Grid.Row="1"/>
+        <Label Name="colorLabel1" Grid.Column="0" Grid.Row="2"/>
+        <Label Name="colorLabel2" Grid.Column="1" Grid.Row="2"/>
+        <Label Name="colorLabel3" Grid.Column="2" Grid.Row="2"/>
+        <Label Name="colorLabel4" Grid.Column="3" Grid.Row="2"/>
 
-        <Label x:Name="attemptsLabel" Grid.Row="3" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></Label>
-        <Button Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Content="Check code" BorderThickness="3,3,3,3" Click="Button_Click"/>
-        <Label x:Name="timerLabel" Grid.Row="3" Grid.Column="3" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></Label>
+        <Label x:Name="attemptsLabel" Grid.Row="0" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></Label>
+        <Button Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Content="Check code" BorderThickness="1,1,1,1" Click="Button_Click" Height="25px"/>
+        <Label x:Name="timerLabel" Grid.Row="0" Grid.Column="3" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></Label>
 
-        <TextBox x:Name="solutionTextBox" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Height="30px" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Visibility="Hidden"></TextBox>
+        <TextBox x:Name="solutionTextBox" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Height="30px" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Visibility="Hidden" Margin="0,5,0,0" IsEnabled="False" />
 
+        <StackPanel Name="attemptsStackPanel" Grid.Row="4" Grid.ColumnSpan="4">
+
+        </StackPanel>
     </Grid>
 </Window>

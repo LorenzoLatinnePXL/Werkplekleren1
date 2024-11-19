@@ -32,7 +32,7 @@ namespace MasterMind
         string color1, color2, color3, color4;
         string[] solution;
         string[] options = { "Red", "Yellow", "Orange", "White", "Green", "Blue" };
-        int attempts = 1;
+        int attempts = 0;
         bool debugMode = false;
 
         public MainWindow()
