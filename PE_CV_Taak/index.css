@@ -1,100 +1,361 @@
-:root{
-    --cyan: #5ce1e6;
+:root {
+    --black: #353535;
+    --blue: #284B63;
+    --grey: #D9D9D9;
+    --white: #FFFFFF;
+    font-size: 24px;
 }
 
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    scroll-behavior: smooth;
 }
 
-body{
-
+body {
+    background: var(--grey);
+    color: var(--black);
 }
 
-.top-of-header{
-    height: 25vh;
-    background-image: url('./assets/topbanner-img.jpg');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-color: rgb(0, 0, 0);
-}
-
-header{
+header {
     position: sticky;
     top: 0;
+    background-color: var(--grey);
 
-    nav{
-        background: rgb(0, 0, 0);
-        color: rgb(220,220,224);
-        height: 5vh;
+    nav {
+        color: var(--blue);
+        min-height: 10vh;
+        height: auto;
         width: 100%;
         display: flex;
         align-items: center;
         justify-content: space-between;
 
 
-
-        & .left-div{
-            width: calc(100% / 3);
+        & .left-nav {
+            width: 20%;
             height: 100%;
             display: flex;
             flex-direction: row;
             align-items: center;
             justify-content: center;
+            font-family: 'Amatic SC', monospace;
+
+            & .link-button {
+                width: 25%;
+                height: 100%;
+
+                & a {
+                    width: 30%;
+                    display: flex;
+                    justify-content: center;
+                    flex-direction: column-reverse;
+                    align-items: center;
+                    text-decoration: none;
+                    color: var(--blue);
+
+                    & img {
+                        width: 32px;
+                    }
+                }
+
+                & a:hover {
+                    max-width: 30%;
+                }
+
+                & a:hover .hide {
+                    opacity: 1;
+                    font-size: 1rem;
+                    font-weight: bolder;
+                    text-align: center;
+                }
+
+                & .hide {
+                    white-space: nowrap;
+                    opacity: 0;
+                    font-size: 0;
+                    text-decoration: none;
+                    color: var(--blue);
+                    transition: all 0.2s ease-in-out;
+                }
+            }
         }
 
-        & .middle-logo{
-            width: calc(100% / 3);
+        & .right-nav {
+            width: 20%;
             height: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
-        }
-
-        & .right-div{
-            width: calc(100% / 3);
-            height: 100%;
-            display: flex;
-            justify-content: space-evenly;
-            align-items: center;
             font-family: 'Amatic SC', monospace;
-            font-size: 24px;
-            gap: 10%;
+            font-size: 1rem;
 
-            a{
-                color: rgba(159, 159, 161, 0.55);
-                text-decoration: none;
-                width: 5%;
+            & .link-button {
                 display: flex;
+                flex-direction: column;
                 align-items: center;
+                justify-content: center;
+                width: 25%;
+                height: 100%;
 
+                & a {
+                    width: 30%;
+                    display: flex;
+                    justify-content: center;
+                    flex-direction: column-reverse;
+                    align-items: center;
+                    text-decoration: none;
+                    color: var(--blue);
+
+                    & img {
+                        width: 32px;
+                    }
+
+                }
+
+                & a:hover .hide {
+                    opacity: 1;
+                    font-size: 1rem;
+                    font-weight: bolder;
+                    text-align: center;
+                }
+
+                & .hide {
+                    white-space: nowrap;
+                    opacity: 0;
+                    font-size: 0;
+                    text-decoration: none;
+                    color: var(--blue);
+                    transition: all 0.2s ease-in-out;
+                }
             }
-
-            a:hover{
-                color: var(--cyan);
-                transition: color 400ms ease-in-out;
-            }
-
-            img{
-                width: 100%;
-            }
-        }
-
-        h2{
-            color: white;
-            font-family: 'Amatic SC', sans-serif;
-            font-size: 28px;
-        }
-
-        h3{
-            color: white;
-            font-family: 'Amatic SC', sans-serif;
-            font-size: 28px;
         }
     }
 }
 
+main {
+
+    #about-me {
+        color: var(--grey);
+        background: var(--blue);
+        height: auto;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        border-radius: 15%;
+
+        & .left-about-me {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100%;
+            width: 30%;
+
+            img {
+                border-radius: 150px;
+                margin-bottom: 5%;
+            }
+
+            .quote {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-family: 'Amatic SC', monospace;
+                text-align: center;
+            }
+        }
+
+        & .right-about-me {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding-right: 5%;
+            margin-top: 3%;
+            margin-bottom: 3%;
+            width: 50%;
+
+            & .about-me-title {
+                text-align: left;
+                font-size: 1.5rem;
+                font-weight: bolder;
+                font-family: 'Amatic SC', monospace;
+                width: 100%;
+                margin-top: 9%;
+
+                & h2 {
+                    margin-top: 5%;
+                }
+            }
+
+            & .hello-world {
+                display: block;
+                text-align: right;
+                font-family: 'Amatic SC', monospace;
+                font-size: 2rem;
+                font-weight: bolder;
+            }
+
+            & .about-me-description {
+                text-align: left;
+                font-size: 1.25rem;
+                font-family: 'Amatic SC', monospace;
+            }
+
+        }
 
 
+        .bold {
+            font-weight: bolder;
+        }
+
+    }
+
+    #skills {
+        padding: 5%;
+        background: var(--grey);
+        height: auto;
+        color: var(--blue);
+
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-areas:
+        "hard-skills soft-skills tech-skills"
+        "work-history work-history work-history";
+        gap: 5%;
+        font-family: 'Amatic SC', monospace;
+
+        .skills-table{
+            height: 100%;
+            width: 100%;
+            display: grid;
+            grid-template-rows: 1fr 9fr;
+            grid-template-areas:
+            'title'
+            'description';
+        }
+
+        .skill-header {
+            text-align: center;
+            font-family: 'Amatic SC', monospace;
+            text-decoration: underline;
+            grid-area: title;
+            align-self: start;
+            justify-self: end;
+            width: 100%;
+        }
+
+        .skill-description{
+            grid-area: description;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 100%;
+
+            & ul li{
+                text-align: right;
+                list-style: none;
+            }
+        }
+
+        & .skill-title {
+            font-weight: bolder;
+        }
+
+        .hard-skills {
+            grid-area: hard-skills;
+            align-content: center;
+            justify-content: space-evenly;
+        }
+
+        .soft-skills {
+            grid-area: soft-skills;
+            align-content: center;
+            justify-content: space-evenly;
+        }
+
+        .tech-skills {
+            grid-area: tech-skills;
+            align-content: center;
+        }
+
+        .work-history {
+            grid-area: work-history;
+            align-content: center;
+        }
+    }
+}
+
+footer {
+    background-color: var(--blue);
+    min-height: 5vh;
+    height: 10vh;
+    font-family: 'Amatic SC', monospace;
+    font-weight: bolder;
+    font-size: 1rem;
+    border-top: 1px solid var(--grey);
+
+    & .footer-container {
+        color: var(--grey);
+        height: 100%;
+        width: 95%;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+
+        & .copyright {
+            width: 30%;
+        }
+
+        & .contact {
+            width: 30%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            font-family: 'Amatic SC', monospace;
+            font-size: 1rem;
+
+
+            & .link-button-footer {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                width: 25%;
+                height: 100%;
+
+                & a {
+                    width: 30%;
+                    display: flex;
+                    justify-content: center;
+                    flex-direction: column;
+                    align-items: center;
+                    text-decoration: none;
+                    color: var(--grey);
+
+                    & img {
+                        width: 32px;
+                    }
+                }
+
+                & a:hover .hide {
+                    opacity: 1;
+                    font-size: 1rem;
+                    font-weight: bolder;
+                    text-align: center;
+                }
+
+                & .hide {
+                    white-space: nowrap;
+                    opacity: 0;
+                    font-size: 0;
+                    text-decoration: none;
+                    color: var(--grey);
+                    transition: all 0.2s ease-in-out;
+                }
+            }
+        }
+    }
+}
