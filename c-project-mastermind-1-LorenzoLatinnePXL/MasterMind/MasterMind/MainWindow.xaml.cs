@@ -26,14 +26,14 @@ namespace MasterMind
         // Variables
         StringBuilder sb = new StringBuilder();
         Random rnd = new Random();
-        string color1, color2, color3, color4;
-        string[] solution;
-        string[] options = { "Red", "Yellow", "Orange", "White", "Green", "Blue" };
-        int attempts = 0;
-        bool debugMode = false;
         DispatcherTimer timer;
         TimeSpan elapsedTime;
         DateTime clicked;
+        string color1, color2, color3, color4;
+        string[] solution;
+        string[] options = { "Red", "Yellow", "Orange", "White", "Green", "Blue" };
+        int attempts = 1;
+        bool debugMode = false;
 
         public MainWindow()
         {
@@ -58,17 +58,14 @@ namespace MasterMind
             // Set solution in the hidden TextBox.
             solutionTextBox.Text = $"{color1}, {color2}, {color3}, {color4}";
 
-            // Set attempts in the StringBuilder;
-            sb.Append($" - Attempt {attempts}");
-
-            // Change Title to data from the StringBuilder.
-            this.Title = sb.ToString();
-
             // Set timer to timerLabel.
             timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromMilliseconds(1);
             timer.Tick += Timer_Tick;
             timerLabel.Content = "Timer: 0,000 / 10";
+
+            // Show total attempts to the user:
+            attemptsLabel.Content = $"Attempt: {attempts} / 10";
 
             // Generate 6 available colors for each ComboBox (from the options array variable)
             AddComboBoxItems(ComboBoxOption1);
@@ -85,6 +82,7 @@ namespace MasterMind
             elapsedTime = DateTime.Now - clicked;
             SetTimerLabelContent(elapsedTime);
             SetTimerLabelLayout(elapsedTime);
+            SetAttemptLabelLayout();
 
             if (elapsedTime.TotalSeconds >= 10)
             {
@@ -97,22 +95,41 @@ namespace MasterMind
             timer.Stop();
             clicked = DateTime.Now;
             attempts++;
-            sb.Clear();
-            sb.Append($"MasterMind - Attempt {attempts}");
-            this.Title = sb.ToString();
+            attemptsLabel.Content = $"Attempt: {attempts} / 10";
             timer.Start();
         }
 
         private void SetTimerLabelLayout(TimeSpan elapsedTime)
         {
-            if (elapsedTime.TotalSeconds >= 7)
+            if (elapsedTime.TotalSeconds >= 8)
             {
                 timerLabel.Foreground = Brushes.Red;
                 timerLabel.FontWeight = FontWeights.Bold;
+            } else if (elapsedTime.TotalSeconds >= 5)
+            {
+                timerLabel.Foreground = Brushes.Orange;
+                timerLabel.FontWeight = FontWeights.DemiBold;
             } else
             {
                 timerLabel.Foreground = Brushes.Black;
                 timerLabel.FontWeight = FontWeights.Regular;
+            }
+        }
+
+        private void SetAttemptLabelLayout()
+        {
+            if (attempts >= 8)
+            {
+                attemptsLabel.Foreground = Brushes.Red;
+                attemptsLabel.FontWeight = FontWeights.Bold;
+            } else if (attempts >= 5)
+            {
+                attemptsLabel.Foreground = Brushes.Orange;
+                attemptsLabel.FontWeight = FontWeights.DemiBold;
+            } else
+            {
+                attemptsLabel.Foreground = Brushes.Black;
+                attemptsLabel.FontWeight = FontWeights.Regular;
             }
         }
 
@@ -211,7 +228,7 @@ namespace MasterMind
             CheckCode(solution, ComboBoxOption3, colorLabel3, 2);
             CheckCode(solution, ComboBoxOption4, colorLabel4, 3);
 
-            RestartTimer(); ;
+            RestartTimer();
         }
 
         private bool ColorInCorrectPosition(string[] solution, ComboBox comboBox, int position)
@@ -246,14 +263,17 @@ namespace MasterMind
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyboardDevice.Modifiers == ModifierKeys.Control && e.Key == Key.F12)
+            if (e.KeyboardDevice.Modifiers == ModifierKeys.Control && e.Key == Key.F12 && !debugMode)
             {
                 solutionTextBox.Visibility = Visibility.Visible;
+                debugMode = true;
             }
-            else
+            else if (e.KeyboardDevice.Modifiers == ModifierKeys.Control && e.Key == Key.F12 && debugMode)
             {
                 solutionTextBox.Visibility = Visibility.Hidden;
+                debugMode = false;
             }
+
         }
     }
 }
