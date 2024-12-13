@@ -29,11 +29,10 @@ namespace Mastermind
         string[] colors = new string[4];
         string[] solution = new string[4];
         string[] options = { "Red", "Yellow", "Orange", "White", "Green", "Blue" };
-        int attempts;
-        int currentRow;
-        int score;
-        bool debugMode;
-        bool hasWon;
+        Brush[] possibleColors = new Brush[6] { Brushes.Red, Brushes.Yellow, Brushes.Orange, Brushes.White, Brushes.Green, Brushes.Blue };
+        int attempts, currentRow, score;
+        bool debugMode = false;
+        bool hasWon = false;
 
         public MainWindow()
         {
@@ -54,6 +53,9 @@ namespace Mastermind
 
         private void StartGame()
         {
+            
+            ClearGridSection();
+
             // Set all values to starting values.
             attempts = 0;
             currentRow = 0;
@@ -124,19 +126,19 @@ namespace Mastermind
             switch (ComboBox.SelectedIndex)
             {
                 case 0:
-                    return (Brush)new BrushConverter().ConvertFromString(options[0]);
+                    return possibleColors[0];
                 case 1:
-                    return (Brush)new BrushConverter().ConvertFromString(options[1]);
+                    return possibleColors[1];
                 case 2:
-                    return (Brush)new BrushConverter().ConvertFromString(options[2]);
+                    return possibleColors[2];
                 case 3:
-                    return (Brush)new BrushConverter().ConvertFromString(options[3]);
+                    return possibleColors[3];
                 case 4:
-                    return (Brush)new BrushConverter().ConvertFromString(options[4]);
+                    return possibleColors[4];
                 case 5:
-                    return (Brush)new BrushConverter().ConvertFromString(options[5]);
+                    return possibleColors[5];
                 default:
-                    return Brushes.White;
+                    return (Brush)new BrushConverter().ConvertFromString("#FFFFFE"); ;
             }
         }
 
@@ -305,6 +307,26 @@ namespace Mastermind
             {
                 e.Cancel = true;
             }
+        }
+
+        private void RestartGame_Click(object sender, RoutedEventArgs e)
+        {
+            StartGame();
+        }
+
+        private void QuitGame_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void DarkModeMenu_Click(object sender, RoutedEventArgs e)
+        {
+            gameGrid.Background = Brushes.DarkGray;
+        }        
+
+        private void LightModeMenu_Click(object sender, RoutedEventArgs e)
+        {
+            gameGrid.Background = Brushes.LightGray;
         }
     }
 }
